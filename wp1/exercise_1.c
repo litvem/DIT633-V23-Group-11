@@ -1,6 +1,6 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 1
-// Exercises 1
+// Exercise 1
 // Submission code: XXXX
 
 /*------------------------------------------------------------------------------------------
@@ -49,6 +49,7 @@ int main (int argc, char* argv[]) {
             break;
             default:   // Print message to the user before exiting the program
             printf("Entered number if out of range.");
+            break;
         }
         //Loop condition for the interval from 1 to 5
     } while(number >= 1 && number <= 5);
