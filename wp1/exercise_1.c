@@ -48,7 +48,7 @@ int main (int argc, char* argv[]) {
             printf("Toto, I've a feeling we're not in Kansas anymore.");
             break;
             default:   // Print message to the user before exiting the program
-            printf("Entered number if out of range.");
+            printf("Entered number is out of range.");
             break;
         }
         //Loop condition for the interval from 1 to 5
