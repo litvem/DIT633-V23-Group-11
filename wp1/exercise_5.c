@@ -5,12 +5,12 @@
 
 /*------------------------------------------------------------------------------------------
 Exercise 5: 
- The program generates a histogram for a the frequenxy of different number in an array 
+ The program generates a histogram for the frequency of different numbers in an array
  with randomize values. The size of the array is set to MAX (set to 100) and can contain 
- values between 0 and MAXNUMBERS (set to 20).
+ values between 0 and MAXNUMBER (set to 20).
 
  Example:
-    Given an array table[]={1,2,12,5,1,0,0,5,9,12,0,2,3,0} the program will printout:
+    Given an array table[] = {1,2,12,5,1,0,0,5,9,12,0,2,3,0} the program will print out:
 
     0   xxxx
     1   xx
@@ -21,100 +21,103 @@ Exercise 5:
     12  xx
 -------------------------------------------------------------------------------------------*/
 
+//Include section
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h>
 
-#define MAX 100 // Defines the maximum number of the values in the table 
-#define MAXNUMBER 20 // Defines the maximum value of random numbers 
+//Define section
+#define MAX 100        // Defines the maximum number of the values in the table
+#define MAXNUMBER 20   // Defines the maximum value of random numbers
 
 
-// ------ Function declarations   ----------  
+// ---------------------------------- Function declarations ---------------------------------
 
-// This function generates a set of random numbers 
-// and fills the table *tab with these numbers 
+/* This function generates a set of random numbers
+and fills the table *tab with these numbers */
 void create_random(int* tab);
 
-// This function takes the *tab of random numbers 
-// and creates a table with the frequency counts for these numbers 
+/* This function takes the *tab of random numbers
+and creates a table with the frequency counts for these numbers */
 void count_frequency(int* tab, int* freq);
 
-// This function takes the frequency count table 
-// and draws a histogram of the values in that frequency table 
+/* This function takes the frequency count table
+and draws a histogram of the values in that frequency table */
 void draw_histogram(int* freq);
 
-// ------ Function definitions   ---------- 
-
+// ------------------------------------ Function definitions --------------------------------
 void create_random(int *tab) {
-    
-    int randomNr; 
-    srand(time(0)); // initilize random number generator with start point 0. 
+    // Declare variable for random number
+    int randomNr;
+
+    // Initialize random number generator with start point 0.
+    srand(time(0));
     
     // Inserts random numbers in the table with size MAX and prints the table.
-    
     printf("Table[] = { ");
-    for (int i = 0; i < MAX;i++) {
-        randomNr = rand() % MAXNUMBER; // creates a random number between 0 and MAXNUMBER
-        tab[i] = randomNr; // inserts the generated number into the table
-        printf(" %d ", randomNr);
+    // Iterate over all number up until MAXNUMBER
+    for (int i = 0; i < MAX; ++i) {
+        randomNr = rand() % MAXNUMBER;   // Create a random number between 0 and MAXNUMBER
+        tab[i] = randomNr;               // Insert the generated number into the table
+        printf(" %d ", randomNr);        // Print the table of random numbers
     }
     printf("}\n");
 }
 
 void count_frequency(int *tab, int *freq) {
+    // Declare and initialize variable for counting numbers frequency
     int counter = 0;
 
-    for (int i = 0; i < MAXNUMBER; i++) {
-        // i equals a possible value in the table, i.e. a nr between 0 and 20 iff MAXNUMBER set to 20
-        
-        for (int j = 0; j < MAX; j++) {// iterates though the whole table
-            if (i == tab[j]) {// if a possible value (i) is found in the table
-                counter++; // the counter increases with one
+    // i equals to a possible value in the table (i.e., a number between 0 and 20 if MAXNUMBER set to 20)
+    for (int i = 0; i < MAXNUMBER; ++i) {
+
+        // Loop iterates through the whole table
+        for (int j = 0; j < MAX; ++j) {
+            if (i == tab[j]) {   // If a possible value (i) is found in the table
+                ++counter;   // The counter increases with one
             }
         }
-        freq[i] = counter; // the numbers of duplicate values is stored in the freq array. 
-        // if the number does not exist in the table the value 0 is stored. 
-        counter = 0; // resets the counter for each iteration
+        // The numbers of duplicate values is stored in the freq array
+        freq[i] = counter;
+
+        // If the number does not exist in the table the value 0 is stored
+        counter = 0; // Resets the counter for each iteration
     }
 }
 
-// to verify that 100 numbers are counted, uncomment the code below
+// To verify that 100 numbers are counted, uncomment lines 90 and 91
 void draw_histogram(int *freq) {
-    //int counter = 0;
-    //int total = 0;
+    // int counter = 0;
+    // int total = 0;
     printf("\nHISTOGRAM FOR THE TABLE ABOVE: \n");
-    for (int i = 0; i < MAXNUMBER; i++) { // we iterate though all possible values in the array 
-        if (freq[i] != 0) { // the histogram only prints values that are not zero . i.e bigger than zero
+
+    // Iterate though all possible values in the array
+    for (int i = 0; i < MAXNUMBER; ++i) {
+
+        // The histogram only prints values that are not zero, e.g., bigger than zero
+        if (freq[i] != 0) {
             printf("%d ", i);
-            for (int j = 0; j < freq[i]; j++) {
+            // Print number of 'x' depending on frequency for each number
+            for (int j = 0; j < freq[i]; ++j) {
                 printf("x");
-                //counter++;
             }
         }
         printf("\n");
-
-      //  printf(" (%d)\n",counter);
-      // total += counter;
-      // counter = 0;
     }
-   // printf(" total(%d)\n", total);
-
 }
+// ---------------------------------------------------------------------------------------------
 
-// ------ Main   -------------------------- 
-
-// The main entry point for the program 
-//  
-// If you choose to go for the optional part 
-// Please modify it accordingly 
+// Main program section
 int main(void) {
 
-    int table[MAX], n;
+    //Variables declaration
+    int table[MAX];
     int frequency[MAXNUMBER];
 
-    create_random(table);
-    count_frequency(table, frequency);
-    draw_histogram(frequency);
+    // Call functions to perform required operations
+    create_random(table);                     // Generate random numbers and put them in a table
+    count_frequency(table, frequency);   // Create a table with frequencies of numbers in the given table
+    draw_histogram(frequency);                // Draw histogram based of frequency table
 
     return 0;
 }
