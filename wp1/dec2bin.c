@@ -76,7 +76,7 @@ int convert2Binary(int num) {
 
                 Right shift:
                 To be able to print in the correct order, bit shift right is used
-                so that we move i steps to the right. The empty spaces are mark as 0.
+                so that we move j steps to the right. The empty spaces are mark as 0.
                 The bitwise operator '&1' creates a logical operation where only the last bit is
                 taken into consideration, '&1' is the same as '& 0000 0001'.Resulting in either 0 or 1.
                 Example bitwise: 0000 0101 & 1= 0000 0001  // only in the last bit we have two 1
