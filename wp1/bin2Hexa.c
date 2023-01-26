@@ -54,27 +54,28 @@ void convert(char* input){
 // Main program section
 int main(int argc, char* argv[]) {
     // Variables declaration
-    char input[11];     // Array to store 12 character values
+    char input[11];     // Array to store 10 character values and has an extra space for '\0' since it is a string
     int j = 0;          // Index of element in the array
 
   // Case if no argument provided, check stdin from pipeline
   if(argc < 2) {
-    int buffer = getc(stdin); // Read stdin
+    int buffer = getc(stdin); // Read stdin, getc provides an int value. It reads characted by character.
+	  
 	// Prints message if getc() fails and no arguments provided
-    if(buffer == EOF){
+    if(buffer == EOF){ // EOF = -1 which is the fail number of getc();
       printf("No arguments provided. Use '-h' for help.\n");
       return 2;   // Exits with code 2 according to specifications
     }
     //
-    while(buffer != EOF && buffer != '\n') {
+    while(buffer != EOF && buffer != '\n') {// while getc has not returned EOF or if it has reach the next line operator
       // Print message if given value is bigger than the size of array input
-      if(j > 11) {
+      if(j > 10) { // the 11th index is reserved for '\0'
         printf("The input is out of range.");
         return 1;
       }
-      // Add read values from getc() to the array converting them to char
+      // Add stdin value from getc() to the array converting them to char
       input[j] = (char)buffer;
-      // Read values from stdin
+      // Read next stdin value from stdin
       buffer = getc(stdin);
       // Increment array index
       j++;
