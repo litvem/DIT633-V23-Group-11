@@ -13,6 +13,9 @@ Exercise 2: Program reads the word inputted by the user, encrypts it using a ver
  encryption algorithm based on "shifting characters" in the ASCII-code table by provided
  program argument (e.g., 13), and prints the encrypted word.
  Program keeps running until EOF.
+
+ Note: In order to run the program, the number of characters to shift should be provided as
+ a program argument upon running in command line (e.g., 13).
 -------------------------------------------------------------------------------------------*/
 
 // Include section
@@ -31,47 +34,50 @@ int main (int argc, char* argv[]) {
     char ch,                // Single character read form the console
          word[MAX];         // String that is read from the console character by character
 
-    // Keep running the program until EOF button combination is entered
-    do {
-        // Prompt the user to type the word for encryption
-        printf("\nEnter the word you like to encrypt: ");
 
-        // Run the program for only one word at the time
-        for(i = 0; word[i] != '\0'; ++i) {
-            // Read the word from the console character by character
-            while ((ch = getchar()) != '\n') {
-                // Add character read by getchar() to the string
-                word[i] = ch;
-                // Update string position
-                ++i;
-                // Add '\0' to the string to mark its end
-                word[i] = '\0';
+        // Keep running the program until EOF button combination is entered
+        do {
+            // Prompt the user to type the word for encryption
+            printf("\nEnter the word you want to encrypt: ");
+
+            // Run the program for only one word at the time
+            for (i = 0; word[i] != '\0'; i++) {
+                // Read the word from the console character by character
+                while ((ch = getchar()) != '\n') {
+                    // Add character read by getchar() to the string
+                    word[i] = ch;
+                    // Update string position
+                    i++;
+                    // Add '\0' to the string to mark its end
+                    word[i] = '\0';
+                }
             }
-        }
 
-        // Convert provided program argument into integer
-        int key = atoi(argv[1]);
+            // Convert provided program argument into integer
+            int key = atoi(argv[1]);
 
-        // Run the loop to encrypt every letter of string 'word'
-        for(i = 0; i < strlen(word); ++i) {
-            // Conditional check if provided character is capital letter
-            if(word[i] >= 'A' && word[i] <= 'Z') {
-                /* Wrap array around using modulo operator,
-                    where 65 - decimal number for character 'A' in ASCII table,
-                          26 - number of alphabetic characters */
-                word[i] = ((word[i] - 65 + key) % 26 ) + 65;
-            // Conditional check if provided character is small letter
-            } else if(word[i] >= 'a' && word[i] <= 'z') {
-                /* Wrap array around using modulo operator,
-                    where 97 - decimal number for character 'a' in ASCII table,
-                          26 - number of alphabetic characters */
-                word[i] = ((word[i] - 97 + key) % 26 ) + 97;
+            // Run the loop to encrypt every letter of string 'word'
+            for (i = 0; i < strlen(word); i++) {
+                // Conditional check if provided character is capital letter
+                if (word[i] >= 'A' && word[i] <= 'Z') {
+                    /* Wrap array around using modulo operator,
+                        where 65 - decimal number for character 'A' in ASCII table,
+                              26 - number of alphabetic characters */
+                    word[i] = ((word[i] - 65 + key) % 26) + 65;
+                    // Conditional check if provided character is small letter
+                } else if (word[i] >= 'a' && word[i] <= 'z') {
+                    /* Wrap array around using modulo operator,
+                        where 97 - decimal number for character 'a' in ASCII table,
+                              26 - number of alphabetic characters */
+                    word[i] = ((word[i] - 97 + key) % 26) + 97;
+                }
             }
-        }
-        // Print encrypted word
-        printf("Encrypted word is %s\n", word);
+            // Print encrypted word
+            printf("Encrypted word is %s\n", word);
 
-    } while (i != feof(stdin));   // Program is terminated if EOF button combination is entered
+        } while (word[i] != EOF);   // Program is terminated if EOF button combination is entered
 
     return 0;
 }
+
+
