@@ -14,10 +14,10 @@ Exercise 1: Program ask the user to enter the number. If provided number is with
 #include <stdio.h>
 
 // Main program section
-int main (int argc, char* argv[]) {
+int main (void) {
 
     // Variable declaration
-    int number = 0;
+    int number;
 
     /* Program will ask for and take the user input at least once.
       If the input is in the interval from 1 to 5, it will continue executing.
@@ -25,7 +25,7 @@ int main (int argc, char* argv[]) {
     do {
 
         // Prompt to enter number
-        printf("\nEnter number: ");
+        printf("\nEnter number between 1 and 5: ");
 
         // Read number from the console
         scanf("%d", &number);
@@ -47,8 +47,8 @@ int main (int argc, char* argv[]) {
             case 5:   // Print message to the user if number 1 was entered
             printf("Toto, I've a feeling we're not in Kansas anymore.");
             break;
-            default:   // Print message to the user before exiting the program
-            printf("Entered number is out of range.");
+            default:   // Print message to the user before exiting the program if the input is invalid
+            printf("Provided input is outside of range. Exiting the program.");
             break;
         }
         //Loop condition for the interval from 1 to 5
