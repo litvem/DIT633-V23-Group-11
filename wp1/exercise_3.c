@@ -17,6 +17,7 @@ Exercise 3: Computer creates a random integer number within a range from 1 to 10
  2. informs the user if the guess was too low or too high.
  If the user provided the wrong guess, the program will continue running until number of
  guesses exceeds the value of MAX_NUMBER.
+ When the user ran out of guesses, program offers the option to try guessing again.
 -------------------------------------------------------------------------------------------*/
 
 // Include section
