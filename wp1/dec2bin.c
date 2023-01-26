@@ -68,45 +68,23 @@ int convert2Binary(int num) {
         byte = ((char*) &num)[i]; // same as '*(((char*) &num) + 1)' => pointer to the pointer of the address of num
 
         // Reverse iteration to get the right order
-        for (int j = bitsInByte-1; j >= 0; j--) {
-            /*
-            * The bit is stored in a char since it has one bit. It will have value 0 or 1.
-            * j is set to '8-1' which equal 7, since we want an 8 iteration in the loop.
+        for (int j = bitsInByte - 1; j >= 0; j--) {
+            /* Now that the location of the byte is stored in the variable 'byte',
+                we can iterate through the bits in that byte by using bit shifts.
+                Bit shifts moves each digit in a numbers binary representation to
+                either right (>>) or left (<<).
 
-            * '&' is a bitwise AND operator. We get 1 when both sides have one in a specific index value.
-                Rules: 0&1 = 0, 1&0 = 0, 0&0 = 0 , 1&1 = 1.
-                Example:
-                1101 & 0001  => 0001 alt 1101 & 1 => 0001
-                1110 & 0001  => 0000 alt 1110 & 0 => 0000
-                1110 & 1011  => 1010
-
-            * Bit shifting. '<<' shifts to the left and '>>' shifts to the right.
-                Example:
-                1110 >> 1 => 111 (to the right)
-                1000 << 1 => 000 (to the left)
-
-                Since we want to bitshift to the right (>>) but we need to do it in reverse
-                instead of using 'byte >>= 1' (same as 'byte = byte >> 1') which will shift 1 to the right,
-                given us following:
-                Example: 12 = 00001100 but byte stores it as 00110000
-
-                Bit shifted right by j 0 = 0
-                Bit shifted right by j 1 = 0
-                Bit shifted right by j 2 = 1
-                Bit shifted right by j 3 = 1
-                Bit shifted right by j 4 = 0
-                Bit shifted right by j 5 = 0
-                Bit shifted right by j 6 = 0
-                Bit shifted right by j 7 = 0        Wrong order
-                ------------------------------------------------
-                Bit shifted right by j 7 = 0    
-                Bit shifted right by j 6 = 0    
-                Bit shifted right by j 5 = 0    
-                Bit shifted right by j 4 = 0    
-                Bit shifted right by j 3 = 1    
-                Bit shifted right by j 2 = 1    
-                Bit shifted right by j 1 = 0    
-                Bit shifted right by j 0 = 0        Right order
+                Right shift:
+                To be able to print in the correct order, bit shift right is used
+                so that we move i steps to the right. The empty spaces are mark as 0.
+                The bitwise operator '&1' creates a logical operation where only the last bit is
+                taken into consideration, '&1' is the same as '& 0000 0001'.Resulting in either 0 or 1.
+                Example bitwise: 0000 0101 & 1= 0000 0001  // only in the last bit we have two 1
+                which results in a 1, in the other cases 0 and 1 are compared which results in a 0.
+                Example (byte >> j) & 1:
+                0000 1100 >> 7 ==> (0000 000)0 & 1 = 0
+                0000 1100 >> 4 ==> (0000) 0000 & 1 = 0
+                0000 1100 >> 2 ==> (00)00 0011 & 1 = 1
             */
             char bit = (byte >> j) & 1;
             printf("%hhd", bit); // %hhd print a char in decimal format
