@@ -54,6 +54,8 @@ int main(int argc, char* argv[]) {
     printf("Enter a decimal number to convert to binary. The decimal should not be 0.\n");
     return 1;
     
+  }else{
+    convert(argv[1]);
   }
   return 0;
 } 
