@@ -56,7 +56,7 @@ void create_random(int *tab) {
     // Inserts random numbers in the table with size MAX and prints the table.
     printf("Table[] = { ");
     // Iterate over all number up until MAXNUMBER
-    for (int i = 0; i < MAX; ++i) {
+    for (int i = 0; i < MAX; i++) {
         randomNr = rand() % MAXNUMBER;   // Create a random number between 0 and MAXNUMBER
         tab[i] = randomNr;               // Insert the generated number into the table
         printf(" %d ", randomNr);        // Print the table of random numbers
@@ -69,12 +69,12 @@ void count_frequency(int *tab, int *freq) {
     int counter = 0;
 
     // i equals to a possible value in the table (i.e., a number between 0 and 20 if MAXNUMBER set to 20)
-    for (int i = 0; i < MAXNUMBER; ++i) {
+    for (int i = 0; i < MAXNUMBER; i++) {
 
         // Loop iterates through the whole table
-        for (int j = 0; j < MAX; ++j) {
+        for (int j = 0; j < MAX; j++) {
             if (i == tab[j]) {   // If a possible value (i) is found in the table
-                ++counter;   // The counter increases with one
+                counter++;   // The counter increases with one
             }
         }
         // The numbers of duplicate values is stored in the freq array
@@ -92,16 +92,20 @@ void draw_histogram(int *freq) {
     printf("\nHISTOGRAM FOR THE TABLE ABOVE: \n");
 
     // Iterate though all possible values in the array
-    for (int i = 0; i < MAXNUMBER; ++i) {
+    for (int i = 0; i < MAXNUMBER; i++) {
 
         // The histogram only prints values that are not zero, e.g., bigger than zero
         if (freq[i] != 0) {
             printf("%d ", i);
             // Print number of 'x' depending on frequency for each number
-            for (int j = 0; j < freq[i]; ++j) {
+            for (int j = 0; j < freq[i]; j++) {
                 printf("x");
             }
+        } else {
+            // Numbers with frequency 0 will not be printed
+            continue;
         }
+
         printf("\n");
     }
 }
