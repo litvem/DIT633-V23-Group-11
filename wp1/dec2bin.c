@@ -26,6 +26,7 @@ Exercise 4:
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 // Define section
 #define oneByteMAX 255
@@ -41,9 +42,9 @@ int convert2Binary(int num) {
     int byteSize = sizeof(char);   // sizeof byteSize = 1 byte
 
     // Print message if given number equals to 0 and exits with code 2
-    if (num == 0) {
-        printf("Error: Conversion unsuccessful.");
-        return 2;
+    if (num == 0) { 
+        printf("00000000");
+        return 0;
     }
 
     // Case if the number is bigger than three bytes threshold
@@ -101,10 +102,23 @@ int main(int argc, char* argv[]) {
         return 2;   // Returns '2' according to specifications
     } // Prints message if the user provided '-h' as an argument
     else if(strcmp(argv[1], "-h") == 0) {
-        printf("Enter a decimal number to convert to binary. The decimal should not be 0.\n");
+        printf("Enter a decimal number to convert to binary.\n");
     } // If one argument has been provided, convert input number to binary format
     else {
-        // Covert program argument to integer and assign to variable 'num'
+        // (((char*)argv[1]) + 1) is char pointer to the first argument and it is increase by 1
+        if(argv[1] > 2147483647){ 
+            printf("Error: Conversion unsuccessful.The input need to be a decimal.");
+            return 2; 
+        }
+    // check all characters in the input are valid
+        for(int i = 0; argv[1][i] != '\0';i++){
+            if(!isdigit(argv[1][i])){
+                printf("Error: Conversion unsuccessful. Use -h for more information.");
+                return 2;
+            }
+        }
+
+    // Covert program argument to integer and assign to variable 'num'
         int num = atoi(argv[1]);
         return convert2Binary(num);
     }
