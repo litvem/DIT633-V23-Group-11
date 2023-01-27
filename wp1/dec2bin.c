@@ -40,9 +40,9 @@ Exercise 4:
 int convert2Binary(int num) {
     // Variable declaration
     char byte;                     // Variable to store value of byte
-    int byteSize = sizeof(char);   // sizeof byteSize = 1 byte
+    int byteSize = sizeof(char);   // Sizeof byteSize = 1 byte
 
-    // Print message if given number equals to 0 and exits with code 2
+    // Print message if given number equals to 0
     if (num == 0) { 
         printf("00000000");
         return 0;
@@ -106,12 +106,12 @@ int main(int argc, char* argv[]) {
         printf("Enter a decimal number to convert to binary.The input range is between 0 and 2147483647.\n");
     } // If one argument has been provided, convert input number to binary format
     else {
-        // (((char*)argv[1]) + 1) is char pointer to the first argument and it is increase by 1
+        // (((char*)argv[1]) + 1) is char pointer to the first argument, it increased by 1
         if(*argv[1] > long_MAX){ 
             printf("Error: Conversion unsuccessful.The input need to be a decimal.");
             return 2; 
         }
-    // check all characters in the input are valid
+    // Check all characters in the input are valid, exit with code 2 if not
         for(int i = 0; argv[1][i] != '\0';i++){
             if(!isdigit(argv[1][i])){
                 printf("Error: Conversion unsuccessful. Use -h for more information.");
