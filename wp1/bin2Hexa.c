@@ -20,6 +20,7 @@ Exercise 4:
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 // Function that converts binary number to hexadecimal value
 void convert(char* input){
@@ -42,21 +43,43 @@ void convert(char* input){
         // Get the whole value after division by 10
         binary = binary / 10;
     }
-    // Print hexadecimal value
-    printf("%d\n", decimal);
+
     if(decimal > 15) {   // Case if hexadecimal value is bigger than 15
       printf("%X", decimal); 
     } else {   // Case if hexadecimal value is equals or less than 15
-      printf("0%X", decimal); 
+       printf("0%X", decimal);
     }
+}
+// check if the input is a valid digit. Not equal to a letter or another number than 1 or 0.
+int checkInput(char input){
+  if(!isdigit(input) || !((char)input == '0' || (char)input == '1')){
+        printf("Error: Conversion unsuccessful. Use -h for more information.");
+        return 2;
+  }
+  return 0;
+}
+
+// method that divides the String input into bytes.
+int divideIntoBytes(const char binary[], int length) {
+
+    char byte[8]; // represents 8 bits
+    int mod;
+    for (int i = 0; i < length; i++) {
+      // since the array must increase by 8, mod 8 is use to calculate the 
+      // insertion of the values
+      mod =i % 8;
+      byte[mod] = binary[i];
+      // when mod is 7 we have a full byte
+      if (mod == 7) {
+        // convert the byte into hexadecimal
+        convert(byte);
+      }
+    }
+    return 0;
 }
 
 // Main program section
 int main(int argc, char* argv[]) {
-    // Variables declaration
-    char input[11];     // Array to store 10 character values and has an extra space for '\0' since it is a string
-    int j = 0;          // Index of element in the array
-
   // Case if no argument provided, check stdin from pipeline
   if(argc < 2) {
     int buffer = getc(stdin); // Read stdin, getc provides an int value. It reads characted by character.
@@ -66,30 +89,54 @@ int main(int argc, char* argv[]) {
       printf("No arguments provided. Use '-h' for help.\n");
       return 2;   // Exits with code 2 according to specifications
     }
-    //
+    
+    // Variables declaration
+    char input[32];     // Array to store 32 character values 
+    int j = 0;          // Index of element in the array
+
     while(buffer != EOF && buffer != '\n') {// while getc has not returned EOF or if it has reach the next line operator
       // Print message if given value is bigger than the size of array input
-      if(j > 10) { // the 11th index is reserved for '\0'
-        printf("The input is out of range.");
+      if(j > 32) { // the 32th index is reserved for '\0'
+        printf("Error: Conversion unsuccessful. Use -h for more information.");
         return 1;
       }
-      // Add stdin value from getc() to the array converting them to char
-      input[j] = (char)buffer;
-      // Read next stdin value from stdin
-      buffer = getc(stdin);
-      // Increment array index
-      j++;
+      // returns an error if the input is not a number or if is it not 1 or 0
+        checkInput((char)buffer);
+        // Add stdin value from getc() to the array converting them to char
+        input[j] = (char)buffer;
+        // Read next stdin value from stdin
+        buffer = getc(stdin);
+        // Increment array index
+        j++;
+      //}
     }
     // Add '\0' to the string to mark its end
     input[j]= '\0';
     // Convert given input
-    convert(input);
+    divideIntoBytes(input,j);
   } // Prints message if program argument is -h
   else if(strcmp(argv[1], "-h") == 0) {
-    printf("Enter a decimal number to convert to binary. The decimal should not be 0.\n");
-    return 1;
+    printf("Enter a binary sequence as numbers. The length of the binary sequence must be a modulo of 8. The minimun size is 8 digits and the maxium is 32 digits \n");
+    return 0;
   } else { // Convert given program argument
-    convert(argv[1]);
+    int i = 0; // contains the length of the input
+    int error; 
+
+    for(i; argv[1][i] != '\0';i++){
+      error = checkInput(argv[1][i]);
+      if(error != 0 ){
+        return error;
+      }
+    }
+    // if the input array a modulo of 8, the input is invalid
+    if(i % 8 != 0){
+      printf("Error: Conversion unsuccessful. Use -h for more information.");
+    }
+    // This helper function divided the array into bytes before converting into hexadecimals
+    divideIntoBytes(argv[1],i);
   }
   return 0;  // End of the program
 } 
+
+
+
