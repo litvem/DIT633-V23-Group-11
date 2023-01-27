@@ -33,6 +33,7 @@ Exercise 4:
 #define twoBytesMAX 65535
 #define threeBytesMAX 16777215
 #define bitsInByte 8
+#define long_MAX 2147483647
 
 /* Function to convert decimal number to binary format
 ! Note: This approach doesn't use extra memory */
@@ -102,11 +103,11 @@ int main(int argc, char* argv[]) {
         return 2;   // Returns '2' according to specifications
     } // Prints message if the user provided '-h' as an argument
     else if(strcmp(argv[1], "-h") == 0) {
-        printf("Enter a decimal number to convert to binary.\n");
+        printf("Enter a decimal number to convert to binary.The input range is between 0 and 2147483647.\n");
     } // If one argument has been provided, convert input number to binary format
     else {
         // (((char*)argv[1]) + 1) is char pointer to the first argument and it is increase by 1
-        if(argv[1] > 2147483647){ 
+        if(*argv[1] > long_MAX){ 
             printf("Error: Conversion unsuccessful.The input need to be a decimal.");
             return 2; 
         }
@@ -124,3 +125,4 @@ int main(int argc, char* argv[]) {
     }
     return 0;   // End the program
 }
+
