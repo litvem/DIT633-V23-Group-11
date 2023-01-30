@@ -4,6 +4,11 @@
 // Submission code: XXXX
 
 /*------------------------------------------------------------------------------------------
+References:
+ - P. J. Deitel, C How to Program, Sixth Edition, 2010
+-------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------------
 Exercise 3: The program manages a database of persons stored in a binary file.
  It provides the user with following options:
  1. Create a new and delete the old file (creates a new file with specified filename, writes
