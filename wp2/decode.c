@@ -1,76 +1,113 @@
+// (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
+// Work package 2
+// Exercise 4 part 2
+// Submission code: XXXX
+
+/*-----------------------------------------------------------------------------------------------------------------
+Exercise 4 part 2: The program takes one argument (hexadecimal number) and prints out bit positions for the engine,
+ gear, key, break1 and break2.
+ The arguments correspond to the decoded byte (output of file code.c).
+ The program prints error message if it finds anything wrong (e.g., too many or too few arguments were provided,
+ faulty input values). The program unpacks the bytes and prints it out according to the below specification:
+
+ Name           Value
+ -----------------------
+ engine_on
+ gear_pos
+ key_pos
+ brake1
+ brake2
+-----------------------------------------------------------------------------------------------------------------*/
+
+// Include section
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-void printDecoded(unsigned char byte);
-int checkInput(int input);
+// Function declarations
+int check_input(int input);
+void print_decoded(unsigned char byte);
 
-/*
-    ADD check for: input bigger than CB
-*/
-
+// Main function
 int main(int argc , char** argv ){ 
-    
-    if(argc == 2){       
+    // Case if number of provided argument equals to 2
+    if(argc == 2) {
+        // Assign values of arguments to two integers accordingly
         int first4bits = argv[1][0];
         int last4bits = argv[1][1];
-        first4bits = checkInput(first4bits);
-        last4bits = checkInput(last4bits);
-        printf("f: %d hex %X  l: %d hex %X \n", first4bits,  first4bits, last4bits, last4bits);
 
-        if(last4bits > 13 || first4bits > 12){
-            printf("Invalid input. The maximun Hexadecimal value is CB.");
+        // Check of argument values using check_input() function
+        first4bits = check_input(first4bits);
+        last4bits = check_input(last4bits);
+
+        // Notify user about incorrect argument values
+        if(last4bits > 13 || first4bits > 12) {
+            printf("Invalid input. The maximum hexadecimal value is CB.");
+            // Terminate program and exit with 1
             exit(1);
         }
 
-        unsigned char byte = 0;
-        byte = last4bits;
-        byte = byte | (first4bits << 4);
+        unsigned char byte;                 // Declare variable to store value of byte
+        byte = last4bits;                   // Assign value of last4bits to variable byte
+        byte = byte | (first4bits << 4);    // Shift value of first4bits to the left by 4 and combine it with value of byte
 
-        printDecoded(byte);
-
-    }else{
-        printf("Argument input is incorrect. Provide one arguement in ca");
-     
+        // Call function print_decoded() to print value of byte
+        print_decoded(byte);
+    } // Notify user if provided argument has incorrect format
+    else {
+        printf("Argument input is incorrect. Provide only one argument.");
     }
 }
 
-
-int checkInput(int input){
-    if( input >= 48 && input < 57){
+// Definition of function to check the format of the input
+int check_input(int input) {
+    // Case if input value is greater than or equal to 48 and less than 57
+    if(input >= 48 && input < 57) {
+        // Reduce value of input by 48
         return input -= 48;
-    }else if(input >= 65 && input < 71){
+    } // Case if input value is greater than or equal to 65 and less than 71
+    else if(input >= 65 && input < 71) {
+        // Reduce value of input by 55
         return input -= 55;
-    }else if(input >= 97 && input < 103){
+    } // Case if input value is greater than or equal to 97 and less than 103
+    else if(input >= 97 && input < 103) {
+        // Reduce value of input by 87
         return input -= 87;
-    }else{
-        printf("Invalid Hexadecimal number");
+    } // Notify user if provided hexadecimal number was incorrect
+    else {
+        printf("Invalid hexadecimal number.\n");
         exit(1);
     }
-    return input;
 }
 
-void printDecoded(unsigned char byte){
-    int engine= 0;
-    int gear = 0;
-    int key = 0;
-    int brake1 = 0;
-    int brake2 = 0;
+// Definition of function to print decoded number according to format in specifications
+void print_decoded(unsigned char byte){
+    // Variable declarations
+    int engine;
+    int gear;
+    int key;
+    int brake1;
+    int brake2;
 
+    // Get value of engine using bit shifting
     engine = byte >> 7; 
     byte = byte << 1;
-    
+
+    // Get value of gear using bit shifting
     gear = byte >> 5;
     byte = byte << 3;
-    
+
+    // Get value of key using bit shifting
     key = byte >> 6;
     byte = byte << 2;
 
+    // Get value of brake1 using bit shifting
     brake1 = byte >> 7;
     byte = byte << 1;
 
+    // Get value of brake2 using bit shifting
     brake2 = byte >> 7;
 
+    // Print numbers according to given format
     printf(" Name            Value  \n");
     printf("------------------------ \n");
     printf(" engine_on         %d\n", engine);
@@ -78,7 +115,6 @@ void printDecoded(unsigned char byte){
     printf(" key_pos           %d\n", key);
     printf(" brake1            %d\n", brake1);
     printf(" brake2            %d\n", brake2);
-
 }
 
 
