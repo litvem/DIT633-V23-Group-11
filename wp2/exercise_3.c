@@ -230,7 +230,7 @@ void print_file(void)
             PERSON person;
             // Read all records in the file and print them
             while (fread(&person, sizeof(PERSON), 1, database)) {
-                printf("%s %s %s\n", person.pers_number, person.firstname, person.famname);
+                printf("%13s %20s %20s\n", person.pers_number, person.firstname, person.famname);
             }
         }
         // Close file
