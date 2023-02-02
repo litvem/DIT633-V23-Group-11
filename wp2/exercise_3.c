@@ -134,8 +134,11 @@ PERSON input_record(void)
          printf("Enter first name, last name and personal number you'd like to add to the file separated by whitespace:\n");
          // Read the user input and save it in dedicated variables
          scanf("%s %s %s", first_name, fam_name, pers_number);
+         
          // Create new person from given user input
          PERSON newPerson;
+         // Clear the memory to avoid junk between the file records
+         memset(&newPerson, 0, sizeof(PERSON));
          // Copy string values from assign variables to newPerson attribute values accordingly
          strcpy(newPerson.firstname, first_name);
          strcpy(newPerson.famname, fam_name);
@@ -227,7 +230,7 @@ void print_file(void)
             PERSON person;
             // Read all records in the file and print them
             while (fread(&person, sizeof(PERSON), 1, database)) {
-                printf("%13s %20s %20s\n", person.pers_number, person.firstname, person.famname);
+                printf("%s %s %s\n", person.pers_number, person.firstname, person.famname);
             }
         }
         // Close file
