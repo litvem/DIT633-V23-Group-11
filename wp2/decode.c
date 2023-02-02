@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 4 part 2
-// Submission code: XXXX
+// Submission code: 9123
 
 /*-----------------------------------------------------------------------------------------------------------------
 Exercise 4 part 2: The program takes one argument (hexadecimal number) and prints out bit positions for the engine,
@@ -59,7 +59,7 @@ int main(int argc , char** argv ){
 }
 
 // Definition of function to check the format of the input
-int check_input(int input) { 
+int check_input(int input) {
     // Case if input value is greater than or equal to 48 and less than or equal to 57
     if(input >= 48 && input <= 57) { // check if the value is the char value for a number
         // Reduce value of input by 48
@@ -93,23 +93,48 @@ void print_decoded(unsigned char byte){
     // removing the engine value (1 bit) by bit shifting 1 step to the left
     byte = byte << 1;
 
+    if(engine > 1){ // checking the range of engine
+        printf("Engine is out of range");
+        exit(1); // existing the program 
+    }
+
     // Get value of gear using bit shifting
     gear = byte >> 5;
     // removing the gear value (3 bits) from the byte by bit shifting 3 step to the left
     byte = byte << 3;
+
+    if(gear > 4){ // checking the range of gear
+        printf("Gear is out of range");
+        exit(1); // existing the program 
+    }
 
     // Get value of key using bit shifting
     key = byte >> 6;
     // removing the key values ( 2 bits) by bit shifting 2 steps to the left
     byte = byte << 2;
 
+    if(key > 2){ // checking the range of key
+        printf("Key is out of range");
+        exit(1); // existing the program 
+    }
+
     // Get value of brake1 using bit shifting
     brake1 = byte >> 7;
     // removing the brake1 value (1 bit) by bit shifting 1 step to the left
     byte = byte << 1;
 
+    if(brake1 > 1){ // checking the range of brake1
+        printf("Brake1 is out of range");
+        exit(1); // existing the program 
+    }
+
     // Get value of brake2 using bit shifting
     brake2 = byte >> 7;
+
+    if(brake2 > 1){ // checking the range of brake 2 
+        printf("Brake2 is out of range");
+        exit(1); // existing the program
+    }
 
     // Print numbers according to given format
     printf(" Name            Value  \n");
@@ -120,5 +145,3 @@ void print_decoded(unsigned char byte){
     printf(" brake1            %d\n", brake1);
     printf(" brake2            %d\n", brake2);
 }
-
-
