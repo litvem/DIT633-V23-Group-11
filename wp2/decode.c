@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 4 part 2
-// Submission code: 9123
+// Submission code: XXXX
 
 /*-----------------------------------------------------------------------------------------------------------------
 Exercise 4 part 2: The program takes one argument (hexadecimal number) and prints out bit positions for the engine,
@@ -60,8 +60,8 @@ int main(int argc , char** argv ){
 
 // Definition of function to check the format of the input
 int check_input(int input) {
-    // Case if input value is greater than or equal to 48 and less than 57
-    if(input >= 48 && input < 57) { // check if the value is the char value for a number
+    // Case if input value is greater than or equal to 48 and less than or equal to 57
+    if(input >= 48 && input <= 57) { // check if the value is the char value for a number
         // Reduce value of input by 48
         return input -= 48;
     } // Case if input value is greater than or equal to 65 and less than 71
