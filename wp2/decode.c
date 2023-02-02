@@ -59,7 +59,7 @@ int main(int argc , char** argv ){
 }
 
 // Definition of function to check the format of the input
-int check_input(int input) {
+int check_input(int input) { 
     // Case if input value is greater than or equal to 48 and less than or equal to 57
     if(input >= 48 && input <= 57) { // check if the value is the char value for a number
         // Reduce value of input by 48
