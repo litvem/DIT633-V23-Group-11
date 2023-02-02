@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 4 part 2
-// Submission code: XXXX
+// Submission code: 9123
 
 /*-----------------------------------------------------------------------------------------------------------------
 Exercise 4 part 2: The program takes one argument (hexadecimal number) and prints out bit positions for the engine,
