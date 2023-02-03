@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 3
-// Submission code: XXXX
+// Submission code: 9123
 
 /*------------------------------------------------------------------------------------------
 References:
@@ -31,9 +31,9 @@ Exercise 3: The program manages a database of persons stored in a binary file.
 /*-----------------------------------Define section----------------------------------------*/
 // Type definition
 typedef struct {
-    char firstname[20];
-    char famname[20];
-    char pers_number[13];               // yyyymmddnnnc
+    char firstname[20];                 // Array of 20 character type elements
+    char famname[20];                   // Array of 20 character type elements
+    char pers_number[13];               // Array of 13 character type elements (format yyyymmddnnnc)
 } PERSON;
 
 FILE *database;                         // Pointer to the file
@@ -85,7 +85,7 @@ int main(void)
                 search_by_name(name);
                 break;
             case 4:   // Case if the user entered 4
-                // Call method to print entire file contents
+                // Call method to print contents of entire file
                 print_file();
                 break;
             case 5:   // Case if the user entered 5
@@ -134,8 +134,11 @@ PERSON input_record(void)
          printf("Enter first name, last name and personal number you'd like to add to the file separated by whitespace:\n");
          // Read the user input and save it in dedicated variables
          scanf("%s %s %s", first_name, fam_name, pers_number);
+         
          // Create new person from given user input
          PERSON newPerson;
+         // Clear the memory to avoid junk between the file records
+         memset(&newPerson, 0, sizeof(PERSON));
          // Copy string values from assign variables to newPerson attribute values accordingly
          strcpy(newPerson.firstname, first_name);
          strcpy(newPerson.famname, fam_name);

@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 1
-// Submission code: XXXX
+// Submission code: 9123
 
 /*------------------------------------------------------------------------------------------
 Exercise 1: The program asks for robot's starting position (coordinates x and y ranging

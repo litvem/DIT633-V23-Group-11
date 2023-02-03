@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 2
-// Submission code: XXXX
+// Submission code: 9123
 
 /*------------------------------------------------------------------------------------------
 Exercise 2: The program generates random numbers and adds to a linked list.
@@ -32,15 +32,16 @@ typedef struct q {
 } REGTYPE; 
  
 // Function declarations
-REGTYPE* random_list(void); 
-REGTYPE* add_first(REGTYPE* temp, int data); 
-void printLinkedList(REGTYPE *act_post);
+REGTYPE* random_list(void);                     // Create a linked list with random numbers
+REGTYPE* add_first(REGTYPE* temp, int data);    // Add an element in the first position of the linked list
+void printLinkedList(REGTYPE *act_post);        // Print the linked list
+void deallocate(REGTYPE* head);                 // Free the memory allocated to the link list
 /*-----------------------------------------------------------------------------------------*/
 
 // Main function
 int main(void)
 {
-    //
+    // Variable definitions
     REGTYPE *act_post,          // Pointer to the beginning of the list
             *head = NULL;       // Set pointer head of type REGTYPE to null
     srand(time(0));             // Random seed
@@ -48,7 +49,7 @@ int main(void)
 // Exercise A
     // Create head element by calling random_list() function
     head = random_list();
-    // Assign head to the beginning og the linked list
+    // Assign head to the beginning of the linked list
     act_post = head;
     printf("A) Printing the linked list:\n");
     // Print values of elements in te linked list
@@ -58,22 +59,35 @@ int main(void)
 // Exercise B
     // Head is set to the returned first value in the add_first() function
     head = add_first(head, addFirst);
-    // // Assign newly created element as a beginning of the linked list
+    // Assign newly created element as a beginning of the linked list
     act_post = head;
     printf(" B) Add a %d to the first position of the linked list:\n", addFirst);
     // Print the new linked list
     printLinkedList(act_post);
     printf("------------------"); 
        
- // Free dynamically allocated memory
-  while((act_post=head) != NULL) {
-     head = act_post->next;
-     free(act_post); 
-  }
+    // Free dynamically allocated memory
+    deallocate(head);
+
   return 0; 
 } 
 
-//
+// Definition of function that free the memory used in the linked list
+void deallocate(REGTYPE* head) {
+    // Create a node pointer call current that is equal to head
+    REGTYPE *current = head;
+    // Keep running the loop while current is not null
+    while(current != NULL) { 
+        // Point both temp and current to the same element in the linked list
+        REGTYPE* temp = current;
+        // Move current one element forward in the linked list
+        current = current -> next;
+        // Free memory of current node
+        free(temp);
+    }
+}
+
+// Definition of function that creates a linked list with random numbers and with size MAX
 REGTYPE* random_list(void) {
     // Variable declarations
     int nr,                     // Variable used to store random number
@@ -91,14 +105,18 @@ REGTYPE* random_list(void) {
     Reference: CodeVault (https://www.youtube.com/watch?v=RYk8qSBbmQc&list=PLfqABt5AS4FmXeWuuNDS3XGENJO1VYGxl&index=3)*/ 
     if(top == NULL){ 
         // If there is not enough memory, the program gets terminated and returns 1 as an error value
+        // We dont free top since there were no memory for it
         printf("Memory cannot be allocated.\n");
+        // exit the program with 1 as return
         exit(1);
     }
     // Assign random value to element value
     top -> number = nr; 
-    // Since there is only one node in the list, next and prev are set to NULL and old is set to the top node
+    // Since there is only one node in the list, next is set to NULL
     top -> next = NULL;
+    // Since there is only one node in the list, prev is set to NULL
     top -> prev = NULL;
+    // Old is set to equal top
     old = top;
     // Increment position in the linked list
     i++;
@@ -108,9 +126,13 @@ REGTYPE* random_list(void) {
         nr = rand() % 100; // Generates a random number between 0 and 100
         item = (REGTYPE *)malloc(sizeof(REGTYPE));
         /* Check if there is enough memory to contain the item structure
-            if not, we terminate the program and return 1 as an error value*/
+            if not, we terminate the program and return 1 as an error value */
         if(item == NULL) {
+            // Notify user about error
             printf("Memory cannot be allocated.\n");
+            // Free memory used the error sent by malloc
+            deallocate(top);
+            // Exit the program
             exit(1);
         }
         // The element number is set to a random number
@@ -123,30 +145,31 @@ REGTYPE* random_list(void) {
         old -> next = item;
         // New element is assigned to last
         old = item;
+        // Increment element in the linked list
         i++;
     }
-    // The program returns the new first entry in the linked list
+    // The program returns the new first element in the linked list
     return(top);
 } 
  
-// Definition of function to create new linked list element
-REGTYPE* add_first(REGTYPE* temp, int data) {
+// Definition of function that creates a new element to the linked list and adds it to the first position
+REGTYPE* add_first(REGTYPE* head, int data) {
     // Dynamic memory allocation to store values of REGTYPE variable
     REGTYPE *newNode = malloc(sizeof(REGTYPE));
     // Case if the linked list is empty
-    if(temp == NULL) { // Upon creating new element
+    if(head == NULL) { // Upon creating new element
         newNode -> prev = NULL;     // Set up pointer to previous element to NULL
         newNode -> next = NULL;     // Set up pointer to next element to NULL
         newNode -> number = data;   // Set up element value to random number
-        temp = newNode;             // Add element to the linked list
+        head = newNode;             // Add element to the linked list
     } // Case if the kinked list is not empty
     else {   // Upon creating new element
         newNode -> prev = NULL;     // Set up pointer to previous element to NULL
-        newNode -> next = temp;     // Set up pointer to next element to previous top element
+        newNode -> next = head;     // Set up pointer to next element to previous top element
         newNode -> number = data;   // Set up element value to random number
-        temp = newNode;             // Add element to the linked list
+        head = newNode;             // Add element to the linked list
     }
-    return temp;                    // return new element of REGTYPE
+    return head;                    // return new element of REGTYPE
 }
 
 // Definition of function that print the linked list

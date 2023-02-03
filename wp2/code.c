@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 2
 // Exercise 4 part 1
-// Submission code: XXXX
+// Submission code: 9123
 
 /*----------------------------------------------------------------------------------------------------------------
 Exercise 4 part 1: The program packs bits into a byte storing 4 different values in a byte.
