@@ -71,76 +71,77 @@ void loop()
   {
     // Case if temperature lower that -12 degrees
     if (convertedTemp < -12)
-    { // Turn on green LED indicating normal dependency
+    { 
+      // Turn on green LED indicating normal dependency
       blink(GREEN_LED);
-      }
+    }
     // Case if temperature is higher than -12 degrees  
     else 
     { 
       // Turn on red LED indicating that temperature is higher than it should be
       blink(RED_LED);
-      }
     }
-    // Case if light intensity is between 1% and 20%
-    else if (convertedLight >= 1 && convertedLight <= 20)
+  }
+  // Case if light intensity is between 1% and 20%
+  else if (convertedLight >= 1 && convertedLight <= 20)
+  {
+    // Case if temperature is between -12 and 0 degrees
+    if (convertedTemp >= -12 && convertedTemp <= 0)
     {
-      // Case if temperature is between -12 and 0 degrees
-      if (convertedTemp >= -12 && convertedTemp <= 0)
-      {
-        // Turn on green LED indicating normal dependency
-        blink(GREEN_LED);
-        }
-       // Case if temperature if lower that -12 degrees 
-       else if (convertedTemp < -12)
-       {
-        // Turn on blue LED indicating that temperature is lower than it should be
-        blink(BLUE_LED);
-        }
-        // Case if temperature is higher that 0
-        else
-        {
-          // Turn on red LED indicating that temperature is higher than it should be
-          blink(RED_LED);
-          }
-      }
-      // Case if light intensity is between 21% and 60%
-      else if (convertedLight >= 21 && convertedLight <= 60)
-      {
-        // Case if temperature is between 0 and 20 degrees
-        if (convertedTemp >= 0 && convertedTemp <= 20)
-        {
-          // Turn on green LED indicating normal dependency
-          blink(GREEN_LED);
-          }
+      // Turn on green LED indicating normal dependency
+      blink(GREEN_LED);
+    }
+    // Case if temperature if lower that -12 degrees 
+    else if (convertedTemp < -12)
+    {
+      // Turn on blue LED indicating that temperature is lower than it should be
+      blink(BLUE_LED);
+    }
+    // Case if temperature is higher that 0
+    else
+    {
+      // Turn on red LED indicating that temperature is higher than it should be
+      blink(RED_LED);
+    }
+  }
+  // Case if light intensity is between 21% and 60%
+  else if (convertedLight >= 21 && convertedLight <= 60)
+  {
+    // Case if temperature is between 0 and 20 degrees
+    if (convertedTemp >= 0 && convertedTemp <= 20)
+    {
+      // Turn on green LED indicating normal dependency
+      blink(GREEN_LED);
+    }
           // Case if temperature is lower that 0
-          else if (convertedTemp < 0)
-          {
-            // Turn on blue LED indicating that temperature is lower than it should be
-            blink(BLUE_LED);
-            }
-           // Case if temperature is higher that 20 degrees
-           else
-           {
-            // Turn on red LED indicating that temperature is higher than it should be
-            blink(RED_LED);
-            } 
-        }
-        // Case if light intensity is more than 61%
-        else
-        {
-          // Case if temperature is higher that 21 degree
-          if (convertedTemp >= 21)
-          {
-            // Turn on green LED indicating normal dependency
-            blink(GREEN_LED);
-            }
-           // Case if temperature is lower that 21 degree
-           else
-           {
-            // Turn on blue LED indicating that temperature is lower than it should be
-            blink(BLUE_LED);
-            } 
-          }
+    else if (convertedTemp < 0)
+    {
+      // Turn on blue LED indicating that temperature is lower than it should be
+      blink(BLUE_LED);
+    }
+    // Case if temperature is higher that 20 degrees
+    else
+    {
+      // Turn on red LED indicating that temperature is higher than it should be
+      blink(RED_LED);
+    } 
+  }
+  // Case if light intensity is more than 61%
+  else
+  {
+    // Case if temperature is higher that 21 degree
+    if (convertedTemp >= 21)
+    {
+      // Turn on green LED indicating normal dependency
+      blink(GREEN_LED);
+    }
+    // Case if temperature is lower that 21 degree
+    else
+    {
+      // Turn on blue LED indicating that temperature is lower than it should be
+      blink(BLUE_LED);
+    } 
+  }
   // Wait for selected interval
   delay(500);                             
 }
@@ -148,10 +149,10 @@ void loop()
 // Helper function to turn on LED
 void blink (int led)
 {
-   // Turn on LED
-   digitalWrite(led, HIGH);
-   // Wait for selected interval
-   delay(delayInterval);
-   // Turn off LED
-   digitalWrite(led, LOW);
+  // Turn on LED
+  digitalWrite(led, HIGH);
+  // Wait for selected interval
+  delay(delayInterval);
+  // Turn off LED
+  digitalWrite(led, LOW);
 }
