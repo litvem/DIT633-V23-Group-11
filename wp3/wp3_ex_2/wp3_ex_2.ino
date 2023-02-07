@@ -1,6 +1,6 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 3
-// Exercise 2
+// Exercise 2 (Custom-made sensors readings conversion without <DHT.h> library)
 // Submission code: XXXX
 
 /*--------------------------------------------------------------------------------------------
@@ -15,9 +15,9 @@ Exercise 2: The system that measures the light intensity and temperature at the 
 
 /*--------------------------------------------------------------------------------------------
   Sources:
-  - Convertion of voltage to temperature in Celsius:
+  - Conversion of voltage to temperature in Celsius:
     https://docs.onion.io/omega2-arduino-dock-starter-kit/arduino-kit-reading-a-temp-sensor.html
-  - More about convertion of voltage to temperature in Celsius and offset:
+  - More about conversion of voltage to temperature in Celsius and offset:
     https://lastminuteengineers.com/tmp36-temperature-sensor-arduino-tutorial/
   - How to map readings from light intensity sensor to persentage ratings:
     https://www.instructables.com/Light-Sensor-Photoresistor-Arduino-Tinkercad/
@@ -30,7 +30,7 @@ const int BLUE_LED = 11;                        // Pin 11 connected to LED
 const int LIGHT_SENSOR = A0;                    // Pin A0 connected to light sensor
 const int TEMP_SENSOR = A1;                     // Pin A1 connected to temperature sensor
 
-int delayInterval = 1000;                       // Delay between sensors reads (decided to be 1 second)
+int delayInterval = 500;                       	// Delay between sensors reads (decided to be 0.5 second)
 
 // Function that runs the code only once
 void setup() 
@@ -142,7 +142,7 @@ void loop()
             } 
           }
   // Wait for selected interval
-  delay(delayInterval);                             
+  delay(500);                             
 }
 
 // Helper function to turn on LED
