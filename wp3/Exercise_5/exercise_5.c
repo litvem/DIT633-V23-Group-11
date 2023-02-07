@@ -1,7 +1,7 @@
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 3
 // Exercise 5
-// Submission code: XXXX
+// Submission code: VF078-vF
 
 /*------------------------------------------------------------------------------------------
 Exercise 5: The program creates an array of integers and fills it with MAX number of random
@@ -32,7 +32,8 @@ int main()
     // Give a random function a new seed
     srand(time(0));
 
-    // Dynamically allocate memory for the array
+    // Create a pointer to the first element of the array and 
+    // dynamically allocate memory for the array. 
     int* array = malloc(MAX * sizeof(int));
 
     // Iterate over all element of the array of size MAX
@@ -42,7 +43,7 @@ int main()
         *(array + i) = rand() % 99;
     }
 
-    // Print the address of the array in memory
+    // Print the address of the first element of the array in memory
     printf("\nThe value of the address of the array (pointer) is: %p\n", array);
     
     // Print first element in the array
@@ -51,12 +52,12 @@ int main()
     // Print last element in the array 
     printf("The last integer in the array is: %d\n", *(array + (MAX - 1)));
     
-    // Print size of element in the array
+    // Print size of element in the array, in this case since array points to an integer
+    // it provides the size of an integer.
     printf("The size of an integer (number of bytes) is: %u \n", sizeof(*array));
     
     // Print size of the whole array
     printf("The size of the whole array in bytes is : %lu \n\n", MAX * sizeof(int));
-
 
     // Iterate over all element of the array of size MAX
     for (int i = 0; i < MAX; i++) 
