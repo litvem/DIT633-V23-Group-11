@@ -48,7 +48,7 @@ int main (int argc, char* args[])
         strcpy(copy, word);
 
         // Option B: Using custom-made function
-        // Uncomment next line to use custom-made function and comment line 44
+        // Uncomment next line to use custom-made function and comment line 48
         // copyString(word, copy);
 
         // Display copied string in the console
@@ -60,7 +60,8 @@ int main (int argc, char* args[])
         // Open the file for reading using its name in the command line as argument
         my_file = fopen(args[1], "r");
         // Case if file doesn't exist or file name is wrong
-        if (my_file == 0) {
+        if (my_file == 0) 
+        {
             // Notify user about error
             printf("Could not open the file.\n");
         }
@@ -70,7 +71,8 @@ int main (int argc, char* args[])
             // Variable to check every character in the file
             int i;
             // Run the loop until EOF
-            while ((i = fgetc(my_file)) != EOF) {
+            while ((i = fgetc(my_file)) != EOF) 
+            {
                 // Print the character in the console
                 printf("%c", i);
             }
