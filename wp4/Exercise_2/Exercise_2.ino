@@ -1,4 +1,5 @@
 
+
 // (C) Emma Litvin, Nicole Quinstedt. Group: 11 (2023)
 // Work package 4
 // Exercise 2
@@ -9,78 +10,69 @@
   and a motor module to move (Micro Servo in TinkerCad).
   At the same time as the motor moves, the program sends the time to the serial port.
 -------------------------------------------------------------------------------------------*/
+#include <Servo.h>
 
-// Define section
-#define MOTOR 10                      // Assign motor to pin 10
+// Variable declaration
+Servo servo;  
+int counter = 0;  // Counter for timer2
+int second = 0;   // Second counter
+int post = 0;     // Position counter
+int forward = 1;  // Boolean for servo motor direction
 
-// Variable declarations
-int counter = 0;						          // Counter for seconds
-int forward = 0;						          // Boolean for servo motor direction 
-
-// Setup function executes only once each time it is reset or turned on
-void setup()
-{
-  Serial.begin(9600);                   // Establish serial communication beetween Arduino board and other components with baud rate
-  pinMode(MOTOR, OUTPUT);					      // Set motor pin to output
-  cli();								                // Stop interrupts
-
-  // Set timer1 interrupt at 1Hz
-  TCCR1A = 0;							              // Set entire TCCR1A register to 0
-  TCCR1B = 0;							              // Same for TCCR1B
-  TCNT1  = 0;							              // Initialize counter value to 0
-
-  // Set compare match register for 1hz increments
-  OCR1A = 15624;						            // = (16*10^6) / (1*1024) - 1 (must be <65536)
-  TCCR1B |= (1 << WGM12);				        // Turn on CTC mode
-  TCCR1B |= (1 << CS12) | (1 << CS10);  // Set CS12 and CS10 bits for 1024 prescaler
-  TIMSK1 |= (1 << OCIE1A);		 		      // Enable timer compare interrupt
-
-  sei();								                // Allow interrupts
+// Set up function
+void setup() {
+  servo.attach(10);   //Connect the servo to pin 10
+  Serial.begin(9600);
+  cli();
+    //set timer2 interrupt at 8kHz
+    TCCR2A = 0;     // set entire TCCR2A register to 0
+    TCCR2B = 0;     // same for TCCR2B
+    TCNT2  = 0;     //initialize counter value to 0
+    // set compare match register for 8khz increments
+    OCR2A = 249;// = (1610^6) / (80008) - 1 (must be <256)
+    // turn on CTC mode
+    TCCR2A |= (1 << WGM21);
+    // Set CS21 bit for 8 prescaler
+    TCCR2B |= (1 << CS21);
+    // enable timer compare interrupt
+    TIMSK2 |= (1 << OCIE2A);
+  sei();//allow interrupts
 }
 
-ISR(TIMER1_COMPA_vect){
-  timer();								              // Method called every second
-}
+// Loop function
+void loop() {
 
-// Function that runs the code repeatedly
-void loop()
-{
-  // Case if forward equals true, turn clockwise
-  if(forward)
-  {
-    // Turn on servo motor
-  	digitalWrite(MOTOR, HIGH); 	  
-    // Turn off servo motor
-    digitalWrite(MOTOR, LOW);		  
-   	// This combination creates a pulse making the servo motor turn clockwise
+}
+// Interrupt Service Routine function - Interrupt handler   
+ISR(TIMER2_COMPA_vect){
+    counter++;            // Counter increase by 1
+  // Since timer2 with 8 khz is use when the counter reaches 8000 every second
+  if(counter == 8000) {   // If counter 8000 
+    timer();              // Timer function call to print the seconds
+    move();               // Move funcation call to move the servo
+    counter = 0;          // the counter is reset to 0 
   }
-
-  // Case if foward is false, turn counterclockwise
-  if(!forward)
-  {					  
-    // Turn off servo motor
-   	digitalWrite(MOTOR, LOW);		
-    // Turn on servo motor
-    digitalWrite(MOTOR, HIGH);		
-    // This combination creates a pulse making the servo motor turn counterclockwise
+} 
+// Function to move the servo motor
+void move() {
+  if(forward){  // If forward direction is true
+  	post++;     // Increase position counter
+  }else{        // If forward is false
+    post--;     // Decrease position counter
   }
-  // Print second counter
-  Serial.println(counter);		
-  // Delay for a second
-  delay(1000);				      	
+  int position = map(post, 0, 60, 0, 180);   // Get servo postion. Convert the input (post) of 0 to 60 range to an output (position) of range 0-180
+  servo.write(position);                     // Set servo at position value
 }
-
-// Function called by the interrupt every second
-void timer()
-{
-  // Second counter increase
-	counter++;	
-  // Case if second equals a minute			      	
-  if(counter == 60)
-  {
-    // Reset second counter
-    counter = 0;				  
-    // Set forward to opossite opposite boolean value	
-    forward = !forward;					
+// Function to track the seconds
+void timer() {
+  second++;                 // Increase second counter
+  
+  if (second == 60) {       // If second equals 60 
+    Serial.println(second); 
+    second = 0;             // Set second counter to 0
+    forward = !forward;     // Set forward to opossite opposite boolean value	
+    delay(900);             // Set a delay of 900 milisecond, to make sure that the timer is synchronize with the tinkecad timer
+  }else{                    // If second does not equal 60 
+    Serial.println(second); 
   }
 }
