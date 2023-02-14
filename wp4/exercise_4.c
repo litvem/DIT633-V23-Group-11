@@ -5,83 +5,121 @@
 
 /*------------------------------------------------------------------------------------------
     Exercise 4: The program uses a declared unsorted test array and searches for a 
-    specified number.The unsorted array is printed and if the value is found it 
+    specified number. The unsorted array is printed and if the value is found it 
     return the index of the first position of the specified number but in the case
     that the number is not found -1 is returned. Then the program uses bubble sort 
     to sort the test array in memory and prints the new sorted array. 
 -------------------------------------------------------------------------------------------*/
 
+// Include section
 #include <stdlib.h>
 #include <stdio.h>
 
-#define  searchNr 23 // number to search for
+// Define section
+#define  searchNr 23                                    // Number to search for
 
-// Function declaration
+// Function declarations
 int search_number(int number, int tab[], int size);     // Function to search for a number in the array
 void bubbleSort(int size, int tab[]);                   // Function that implements bubble sort
 void swap(int* a, int* b);                              // Function that swap two values in memory
 void printArray(int size, int tab[]);                   // Function that prints the values of the array
 
-int main(){
-
-    int test[] = {1,2,34,5,67,3,23,12,13,10};   // The test array for the program
-    int size = sizeof(test)/sizeof(test[0]);    // Storing the size of the array
-
-    printf("---------------\n Searching for:%d \n", searchNr, size);  // Printing the value to search for
+// Main function
+int main()
+{
+    // Test array for the program
+    int test[] = {1, 2, 34, 5, 67, 3, 23, 12, 13, 10};
+    // Store size of the array
+    int size = sizeof(test) / sizeof(test[0]);
+    // Display the alue to search for
+    printf("---------------\n Searching for:%d \n", searchNr, size);
     printf("---------------\n Unsorted array: ");
-    printArray(size, test);                             // Print the unsorted array
-
-    int index = search_number(searchNr,test,size);            // Storing the result of the search_number function
+    // Display the unsorted array
+    printArray(size, test);
+    // Store the result of the search_number function
+    int index = search_number(searchNr,test,size);
     
     printf("\n---------------\n Result:");
-    
-    if(index >= 0){                                     // If index is bigger or equal to 0
+    // Case if index is bigger or equals to 0
+    if(index >= 0)
+    {
+        // Display the index
         printf(" found at index %d\n", index); 
-    }else{
-        printf(" %d .Number not found. \n",index);      // If index is -1, the number was not found
+    }
+    // Case if index is -1, i.e., the number was not found
+    else
+    {
+        // Notify user about error
+        printf(" %d. Number not found. \n", index);
     }
 
-    bubbleSort(size, test);     // Using bubble sort to sort the array in memory
+    // Call the function to sort the array in memory
+    bubbleSort(size, test);
+    // Display sorted array
     printf("---------------\n Sorted array: ");
-    printArray(size, test);     // Using printArray to print the sorted array 
-
-    return 0; // End of the program
+    printArray(size, test);
+    
+    // End of the program
+    return 0; 
 }
 
-// Function that determinates if a number is in the array
-int search_number(int number, int tab[], int size){
-
-    for(int i = 0; i < size -1 ; i ++){         // Looping thourgh the array to find the given number
-        
-        if(number == tab[i]){                       // If the given number is found
-            return i;                           // return the value of the index                            
+// Definition of function that determine if the number is in the array
+int search_number(int number, int tab[], int size)
+{
+    // Iterate over elements in array to find the given number
+    for(int i = 0; i < size - 1 ; i++)
+    {         
+        // Case if given number is found
+        if(number == tab[i])
+        {   // Return value of its index
+            return i;                        
         }
     }
-    return -1; // If the value is not found returning -1
+    // Return -1 if the number was not found
+    return - 1;
 }
 
-void bubbleSort(int size, int tab[]){
-    for(int i = 0; i < size -1; i++){           // Looping through the array where the last i elements are in the right place
-        for(int j= 0; j < size-i-1; j++){       // Looping through the array an putting the highest value at the last position
-            if(*(tab + j)> *(tab + j + 1)){     // If the current value is bigger than the next value
-            // Note: same as tab[j] > tab[j +1]
-                swap((tab + j),(tab + j + 1));  // Calling the swap function and providing the
-            //Note: same as &[tabj], &tab[j+1]
+// Definition of function for bubble sort
+void bubbleSort(int size, int tab[])
+{
+    // Iterate elements in array where the last i elements are in the right place
+    for(int i = 0; i < size - 1; i++)
+    {           
+        // Iterate elements in array and putting the highest value at the last position
+        for(int j = 0; j < size - i - 1; j++)
+        {      
+            // Case if current element is bigger than the next element
+            if(*(tab + j) > *(tab + j + 1))
+            {
+                // Note: same as tab[j] > tab[j + 1]
+
+                // Call helper finction to swap elements
+                swap((tab + j), (tab + j + 1));
+            // Note: same as &[tabj], &tab[j+1]
             }
         }
     }
 }
-// Function that swaps the value of two pointer in memory
-void swap(int* a, int* b){
-    int temp = *a;      // Create a temporary int to store the value in pointer a
-    *a = *b;            // Store the value in pointer b in pointer a
-    *b = temp;          // Store the value in the temporary in b.
+
+// Definition of function that swaps the value of two pointer in memory
+void swap(int *a, int *b)
+{
+    // Create temporary variable to store the value in pointer a
+    int temp = *a;
+    // Store value in pointer b in pointer a
+    *a = *b;
+    // Store value of temporary variable in pointer b
+    *b = temp;          
 }
 
-// Function that prints the values of the array
-void printArray(int size, int tab[]){
-    for(int i = 0; i < size; i++){      // Looping through the array
-        printf("  %d ", tab[i]);        // Print the array index and it value
+// Definition of function that prints the values of the array
+void printArray(int size, int tab[])
+{
+    // Iterate over elements in array
+    for(int i = 0; i < size; i++)
+    {   
+        // Display array index and its value
+        printf("  %d ", tab[i]);        
     }
 }
 
