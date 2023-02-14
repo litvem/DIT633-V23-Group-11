@@ -46,7 +46,7 @@ void loop() {
 // Interrupt Service Routine function - Interrupt handler   
 ISR(TIMER2_COMPA_vect){
     counter++;            // Counter increase by 1
-  // Since timer2 at 8 khz is use when the counter reaches 8000 every second
+  // Since timer2 at 8 khz is use, the counter reaches 8000 every second
   if(counter == 8000) {   // If counter 8000 
     timer();              // Timer function call to print the seconds
     move();               // Move funcation call to move the servo
